@@ -1,4 +1,3 @@
-import { listenerCount } from 'process';
 import { SQL_DB } from './maria-db';
 
 export type Movie = {
@@ -6,15 +5,15 @@ export type Movie = {
 };
 
 export type MovieServices = {
-    list(page: number, pageSize: number, search: string) : Promise<Movie[]>,
+    list(page: number, pageSize: number, search: string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default') : Promise<Movie[]>,
     getById(id: string),
-    getByFilter(filter: string | string[])
+    getByFilter(page: number, pageSize: number, search: string, filter: string | string[], order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default')
 };
 
 export function buildMovieService(db: SQL_DB,
                                   movieService : MovieServices){
     return{
-        async list(page: number, pageSize: number, search: string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old') : Promise<Movie[]>{
+        async list(page: number, pageSize: number, search: string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default') : Promise<Movie[]>{
             return await db.runQuery(
                 `INSERT INTO messages(message, target, origin) VALUES('${message.message}', '${message.to}', '${message.from}')`
             );
@@ -26,7 +25,7 @@ export function buildMovieService(db: SQL_DB,
             );
         },
 
-        async getByFilter(filter: string | string[], order: 'alphadescent' | 'alphaascent' | 'new' | 'old') : Promise<Movie[]>{
+        async getByFilter(page: number, pageSize: number, search: string, filter: string | string[], order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default') : Promise<Movie[]>{
             return await db.runQuery(
                 `INSERT INTO messages(message, target, origin) VALUES('${message.message}', '${message.to}', '${message.from}')`
             );
