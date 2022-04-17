@@ -4,11 +4,6 @@
     "description": "Proyecto encargado durante el Teamcamp de Digio.",
     "main": "main.js",
     "scripts": {
-        "start:re": "react-scripts start",
-        "build:re": "react-scripts build",
-        "test:re": "react-scripts test",
-        "test:commit:re": "react-scripts test --watchAll=false --passWithNoTests",
-        "test:coverage:re": "react-scripts test --coverage --watchAll",
         "eject": "react-scripts eject",
         "build": "tsc -p tsconfig-build.json",
         "start": "node dist/main.js",
@@ -52,7 +47,6 @@
     },
     "dependencies": {
         "convict": "^6.2.2",
-        "create-react-app": "^1.2.1",
         "fastify": "^3.27.4",
         "make-promises-safe": "^5.1.0",
         "pino": "^7.9.2",
