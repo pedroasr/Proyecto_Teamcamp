@@ -1,12 +1,6 @@
-import fastify, {
-    FastifyInstance,
-    FastifyPluginCallback,
-    FastifySchema
-} from 'fastify';
+import fastify, { FastifyInstance } from 'fastify';
 import type { Logger } from 'pino';
-
 import { MovieServices } from './database/movie-service';
-
 import { buildMovieRoutes } from './routes/movie/movie-events';
 
 export function buildServer(logger: Logger, movieService : MovieServices): FastifyInstance {
