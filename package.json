@@ -1,9 +1,15 @@
 {
-    "name": "fastify-sample",
+    "name": "lavideotecadelvago.com",
     "version": "0.0.1",
-    "description": "Our first API with fastify",
-    "main": "dist/main.js",
+    "description": "Proyecto encargado durante el Teamcamp de Digio.",
+    "main": "main.js",
     "scripts": {
+        "start:re": "react-scripts start",
+        "build:re": "react-scripts build",
+        "test:re": "react-scripts test",
+        "test:commit:re": "react-scripts test --watchAll=false --passWithNoTests",
+        "test:coverage:re": "react-scripts test --coverage --watchAll",
+        "eject": "react-scripts eject",
         "build": "tsc -p tsconfig-build.json",
         "start": "node dist/main.js",
         "start:dev": "ts-node src/main.ts --inspect=0.0.0.0:9229",
@@ -20,7 +26,7 @@
         "prepare": "[ \"$NODE_ENV\" = production ] && exit 0;husky install",
         "pretty-quick": "pretty-quick --staged"
     },
-    "author": "juanjofp",
+    "author": "Pedro Antonio",
     "license": "MIT",
     "devDependencies": {
         "@types/convict": "^6.1.1",
@@ -46,6 +52,7 @@
     },
     "dependencies": {
         "convict": "^6.2.2",
+        "create-react-app": "^1.2.1",
         "fastify": "^3.27.4",
         "make-promises-safe": "^5.1.0",
         "pino": "^7.9.2",
