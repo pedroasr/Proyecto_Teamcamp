@@ -109,8 +109,8 @@ export function buildMovieRoutes(movieServices : MovieServices){
 
     return function(fastify: FastifyInstance, opts, next){
         fastify.get('/', {...opts, schema: listSchema}, listMovies);
-        fastify.get('/movie:id', {...opts, schema: idMovieSchema}, getMovieById);
-        fastify.get('/movie/:genre-:algo', {...opts, schema: filterMovieSchema}, getByFilter);
+        fastify.get('/:id', {...opts, schema: idMovieSchema}, getMovieById);
+        fastify.get('/:genre-:algo', {...opts, schema: filterMovieSchema}, getByFilter);
         next();
     }
 }
