@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from "fastify";
+import { FastifyInstance, FastifyPluginCallback, FastifyRequest } from "fastify";
 import { getNextLink, getPrevLink } from "../../utils/url";
 import { MovieServices } from "../../database/movie-service";
 
@@ -12,6 +12,7 @@ const movieSchema = {
 };
 
 const listSchema = {
+    tags: ['movies'],
     querystring: {
         page: { type: 'integer', minimum: 1, default: 1 },
         pageSize: { type: 'integer', minimum: 1, maximum: 100, default: 10 },
@@ -34,6 +35,7 @@ const listSchema = {
 };
 
 const idMovieSchema = {
+    tags: ['movies'],
     params: {
         id: { 
             type: 'string'
@@ -52,6 +54,7 @@ const idMovieSchema = {
 }
 
 const filterMovieSchema = {
+    tags: ['movies'],
     querystring: {
         page: { type: 'integer', minimum: 1, default: 1 },
         pageSize: { type: 'integer', minimum: 1, maximum: 100, default: 10 },
@@ -59,7 +62,7 @@ const filterMovieSchema = {
         order: { type: 'string', default: 'default' }
     },
     params: {
-        filter: { 
+        genre: { 
             type: 'string'
         }
     },
@@ -78,39 +81,41 @@ const filterMovieSchema = {
     }
 };
 
-export function buildMovieRoutes(movieServices : MovieServices){
-
-    async function listMovies(request : FastifyRequest<{Querystring: {page:number, pageSize:number, search:string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default'}}>){
-        const { page, pageSize, search } = request.query;
-        const movieList = await movieServices.list(page, pageSize, search, 'default');
-        return {
-            results: movieList,
-            next: getNextLink(request, movieList),
-            prev: getPrevLink(request)
-        };
-    }
-
-    async function getMovieById(request : FastifyRequest<{ Params : { id: string } }>){
-        const { id } = request.params;
-        const movie = await movieServices.getById(id);
-        return movie;
-    }
-
-    async function getByFilter(request : FastifyRequest<{Querystring: {page:number, pageSize:number, search:string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default'}, Params : { filter : string | string[] }}>) {
-        const { page, pageSize, search } = request.query;
-        const { filter } = request.params;  
-        const movieList = await movieServices.getByFilter(page, pageSize, search, filter, 'default');
-        return {
-            results: movieList,
-            next: getNextLink(request, movieList),
-            prev: getPrevLink(request)
-        };
-    }
+export function buildMovieRoutes() : FastifyPluginCallback<{movieServices : MovieServices}>{
 
     return function(fastify: FastifyInstance, opts, next){
+        const { movieServices } = opts;
+
+        async function listMovies(request : FastifyRequest<{Querystring: {page:number, pageSize:number, search:string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default'}}>){
+            const { page, pageSize, search } = request.query;
+            const movieList = await movieServices.list(page, pageSize, search, 'default');
+            return {
+                results: movieList,
+                next: getNextLink(request, movieList),
+                prev: getPrevLink(request)
+            };
+        }
+
+        async function getMovieById(request : FastifyRequest<{ Params : { id: string } }>){
+            const { id } = request.params;
+            const movie = await movieServices.getById(id);
+            return movie;
+        }
+
+        async function getByFilter(request : FastifyRequest<{Querystring: {page:number, pageSize:number, search:string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default'}, Params : { genre : string | string[] }}>) {
+            const { page, pageSize, search } = request.query;
+            const { genre } = request.params;  
+            const movieList = await movieServices.getByFilter(page, pageSize, search, genre, 'default');
+            return {
+                results: movieList,
+                next: getNextLink(request, movieList),
+                prev: getPrevLink(request)
+            };
+        }
+
         fastify.get('/', {...opts, schema: listSchema}, listMovies);
         fastify.get('/:id', {...opts, schema: idMovieSchema}, getMovieById);
-        fastify.get('/:genre-:algo', {...opts, schema: filterMovieSchema}, getByFilter);
+        fastify.get('/:genre', {...opts, schema: filterMovieSchema}, getByFilter);
         next();
-    }
+    };
 }

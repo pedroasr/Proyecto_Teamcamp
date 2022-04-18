@@ -28,7 +28,7 @@ export function buildConfig(): Config {
         projectName: {
             doc: 'Fastify project',
             format: String,
-            default: 'Default Project',
+            default: 'lavideotecadelvago.com',
             env: 'PROJECT_NAME'
         },
         env: {
@@ -55,7 +55,7 @@ export function buildConfig(): Config {
             host: {
                 doc: 'The host ip address to bind the http server.',
                 format: String,
-                default: '0.0.0.0',
+                default: '127.0.0.1',
                 env: 'HTTP_HOST'
             },
             port: {

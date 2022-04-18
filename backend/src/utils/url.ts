@@ -1,4 +1,5 @@
 import { FastifyRequest } from 'fastify';
+import { Movie } from '../database/movie-service';
 
 function removeEndSlash(path: string): string {
     if (path[path.length - 1] === '/') {
@@ -23,7 +24,7 @@ export function getPrevLink(request: FastifyRequest<{ Querystring: { page: numbe
     return page !== 1 ? getPagedLink(request, page - 1, pageSize, rest) : undefined;
 }
 
-export function getNextLink(request: FastifyRequest<{ Querystring: { page: number, pageSize: number, [key:string]: string | number } }>, results): string | undefined {
+export function getNextLink(request: FastifyRequest<{ Querystring: { page: number, pageSize: number, [key:string]: string | number } }>, results: Movie[]): string | undefined {
     const { page, pageSize, ...rest } = request.query;
     return results.length === pageSize ? getPagedLink(request, page + 1, pageSize, rest) : undefined;
 }

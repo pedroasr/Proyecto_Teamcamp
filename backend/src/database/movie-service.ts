@@ -9,8 +9,8 @@ export type Movie = {
 
 export type MovieServices = {
     list(page: number, pageSize: number, search: string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default') : Promise<Movie[]>,
-    getById(id: string),
-    getByFilter(page: number, pageSize: number, search: string, filter: string | string[], order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default')
+    getById(id: string) : Promise<Movie>,
+    getByFilter(page: number, pageSize: number, search: string, filter: string | string[], order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default') : Promise<Movie[]>
 };
 
 export function buildMovieService(db: SQL_DB){
