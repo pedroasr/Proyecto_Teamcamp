@@ -8,6 +8,7 @@ const movieSchema = {
         id: { type: 'string' },
         name: { type: 'string' },
         image: { type: 'string' },
+        description: { type: 'string' },
         gender: { type: 'string' },
         release_year: { type: 'string' },
         rate: { type: 'string' }
