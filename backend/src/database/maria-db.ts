@@ -1,10 +1,10 @@
 import mariadb, { Connection } from 'mariadb';
 
-const CREATE_TABLE_MESSAGES = `CREATE TABLE IF NOT EXISTS messages (
+const CREATE_TABLE_MESSAGES = `CREATE TABLE IF NOT EXISTS movies (
     id INT AUTO_INCREMENT NOT NULL,
-    message VARCHAR(200),
-    target VARCHAR(254),
-    origin VARCHAR(254),
+    name VARCHAR(20),
+    image VARCHAR(254),
+    desciption VARCHAR(254),
     PRIMARY KEY ( id )
 );`;
 

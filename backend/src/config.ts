@@ -12,6 +12,14 @@ export type Config = {
         host: string;
         port: number;
     };
+    maria: {
+        host: string;
+        port: number;
+        root: string;
+        user: string;
+        password: string;
+        database: string;
+    };
 };
 
 export function buildConfig(): Config {
@@ -55,6 +63,44 @@ export function buildConfig(): Config {
                 format: 'port',
                 default: 3099,
                 env: 'HTTP_PORT'
+            }
+        },
+        maria: {
+            host: {
+                doc: 'The host ip address to bind the MariaDB server.',
+                format: String,
+                default: 'localhost',
+                env: 'MARIA_HOST'
+            },
+            port: {
+                doc: 'The port to bind the MariaDB server.',
+                format: 'port',
+                default: 3306,
+                env: 'MARIA_PORT'
+            },
+            root: {
+                doc: 'The root password to bind the MariaDB server.',
+                format: String,
+                default: 'mypass',
+                env: 'MARIA_ROOT_PASSWD'
+            },
+            user: {
+                doc: 'The user to bind the MariaDB server.',
+                format: String,
+                default: 'tcuser',
+                env: 'MARIA_USER_NAME'
+            },
+            password: {
+                doc: 'The user password to bind the MariaDB server.',
+                format: String,
+                default: 'tcpasswd',
+                env: 'MARIA_USER_PASSWD'
+            },
+            database: {
+                doc: 'The database name to bind the MariaDB server.',
+                format: String,
+                default: 'teamcamp',
+                env: 'MARIA_DATABASE_NAME'
             }
         }
     });
