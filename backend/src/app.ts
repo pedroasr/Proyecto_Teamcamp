@@ -1,16 +1,14 @@
 import { FastifyInstance } from 'fastify';
 import { buildServer } from './server';
-import { buildMovieService } from './database/movie-service';
-import { Config } from './config';
-import { buildSQLDatabase } from './database/maria-db';
-import { buildLogger } from './logger';
+import { buildMovieServices } from './database/movie-service';
+import { Logger } from 'pino';
+import { SQL_DB } from './database/maria-db';
 
 
-export async function buildApp(config : Config) {
-    const mariadb = buildSQLDatabase(config.maria);
-    const logger = buildLogger(config.log);
-    const movieService = buildMovieService(mariadb);
-    const server = buildServer(logger, movieService);
+export async function buildApp(logger : Logger, sqlDB : SQL_DB) {
+
+    const movieServices = buildMovieServices(sqlDB);
+    const server = buildServer(logger, movieServices);
     return {
         async close(): Promise<void> {
             await server.close();

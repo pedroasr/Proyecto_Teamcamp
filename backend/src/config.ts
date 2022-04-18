@@ -69,7 +69,7 @@ export function buildConfig(): Config {
             host: {
                 doc: 'The host ip address to bind the MariaDB server.',
                 format: String,
-                default: 'localhost',
+                default: '172.17.0.2',
                 env: 'MARIA_HOST'
             },
             port: {
@@ -81,25 +81,25 @@ export function buildConfig(): Config {
             root: {
                 doc: 'The root password to bind the MariaDB server.',
                 format: String,
-                default: 'mypass',
+                default: 'proyecto_peliculas',
                 env: 'MARIA_ROOT_PASSWD'
             },
             user: {
                 doc: 'The user to bind the MariaDB server.',
                 format: String,
-                default: 'tcuser',
+                default: 'pedro',
                 env: 'MARIA_USER_NAME'
             },
             password: {
                 doc: 'The user password to bind the MariaDB server.',
                 format: String,
-                default: 'tcpasswd',
+                default: 'peliculas',
                 env: 'MARIA_USER_PASSWD'
             },
             database: {
                 doc: 'The database name to bind the MariaDB server.',
                 format: String,
-                default: 'teamcamp',
+                default: 'peliculas',
                 env: 'MARIA_DATABASE_NAME'
             }
         }

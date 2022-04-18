@@ -62,7 +62,7 @@ const filterMovieSchema = {
         order: { type: 'string', default: 'default' }
     },
     params: {
-        genre: { 
+        gender: { 
             type: 'string'
         }
     },
@@ -87,8 +87,8 @@ export function buildMovieRoutes() : FastifyPluginCallback<{movieServices : Movi
         const { movieServices } = opts;
 
         async function listMovies(request : FastifyRequest<{Querystring: {page:number, pageSize:number, search:string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default'}}>){
-            const { page, pageSize, search } = request.query;
-            const movieList = await movieServices.list(page, pageSize, search, 'default');
+            const { page, pageSize, search, order } = request.query;
+            const movieList = await movieServices.list(page, pageSize, search, order);
             return {
                 results: movieList,
                 next: getNextLink(request, movieList),
@@ -102,10 +102,10 @@ export function buildMovieRoutes() : FastifyPluginCallback<{movieServices : Movi
             return movie;
         }
 
-        async function getByFilter(request : FastifyRequest<{Querystring: {page:number, pageSize:number, search:string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default'}, Params : { genre : string | string[] }}>) {
-            const { page, pageSize, search } = request.query;
-            const { genre } = request.params;  
-            const movieList = await movieServices.getByFilter(page, pageSize, search, genre, 'default');
+        async function getByFilter(request : FastifyRequest<{Querystring: {page:number, pageSize:number, search:string, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default'}, Params : { gender : string }}>) {
+            const { page, pageSize, search, order } = request.query;
+            const { gender } = request.params;  
+            const movieList = await movieServices.getByFilter(page, pageSize, search, order, gender);
             return {
                 results: movieList,
                 next: getNextLink(request, movieList),
@@ -113,9 +113,9 @@ export function buildMovieRoutes() : FastifyPluginCallback<{movieServices : Movi
             };
         }
 
-        fastify.get('/', {...opts, schema: listSchema}, listMovies);
-        fastify.get('/:id', {...opts, schema: idMovieSchema}, getMovieById);
-        fastify.get('/:genre', {...opts, schema: filterMovieSchema}, getByFilter);
+        fastify.get('/', {schema: listSchema}, listMovies);
+        fastify.get('/:id', {schema: idMovieSchema}, getMovieById);
+        fastify.get('/:gender', {schema: filterMovieSchema}, getByFilter);
         next();
     };
 }

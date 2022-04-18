@@ -3,18 +3,22 @@ import gracefulShutdown from './graceful-shutdown';
 import 'make-promises-safe';
 import { buildApp } from './app';
 import { buildLogger } from './logger';
+import { buildSQLDatabase } from './database/maria-db';
 
 const config = buildConfig();
 const logger = buildLogger(config.log);
 
 async function main() {
     logger.info(`Starting ${config.projectName}`);
-    const app = await buildApp(config);
+    const { http, maria } = config;
+    const sqlDB = buildSQLDatabase(maria);
+    await sqlDB.init();
 
-    const { http } = config;
+    const app = await buildApp(logger, sqlDB);
+
     await app.getServer().listen(http.port, http.host);
-    process.on('SIGTERM', gracefulShutdown(app, logger));
-    process.on('SIGINT', gracefulShutdown(app, logger));
+    process.on('SIGTERM', gracefulShutdown(app, logger, sqlDB));
+    process.on('SIGINT', gracefulShutdown(app, logger, sqlDB));
 }
 
 main().catch(error => {
