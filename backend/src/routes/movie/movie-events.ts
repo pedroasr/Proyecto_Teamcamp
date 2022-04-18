@@ -51,7 +51,7 @@ const idMovieSchema = {
                 } 
             }
     }
-}
+} 
 
 const filterMovieSchema = {
     tags: ['movies'],
@@ -79,7 +79,7 @@ const filterMovieSchema = {
             }
         }
     }
-};
+}; 
 
 export function buildMovieRoutes() : FastifyPluginCallback<{movieServices : MovieServices}>{
 
@@ -95,7 +95,7 @@ export function buildMovieRoutes() : FastifyPluginCallback<{movieServices : Movi
                 prev: getPrevLink(request)
             };
         }
-
+ 
         async function getMovieById(request : FastifyRequest<{ Params : { id: string } }>){
             const { id } = request.params;
             const movie = await movieServices.getById(id);
@@ -115,7 +115,7 @@ export function buildMovieRoutes() : FastifyPluginCallback<{movieServices : Movi
 
         fastify.get('/', {schema: listSchema}, listMovies);
         fastify.get('/:id', {schema: idMovieSchema}, getMovieById);
-        fastify.get('/:gender', {schema: filterMovieSchema}, getByFilter);
+        fastify.get('/filter/:gender', {schema: filterMovieSchema}, getByFilter); 
         next();
     };
 }
