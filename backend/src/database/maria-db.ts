@@ -1,12 +1,46 @@
 import mariadb, { Connection } from 'mariadb';
 
-const CREATE_TABLE_MESSAGES = `CREATE TABLE IF NOT EXISTS movies (
+const REMOVE_TABLE = `DROP TABLE IF EXISTS movies;`;
+const CREATE_TABLE_MOVIES = `CREATE TABLE IF NOT EXISTS movies (
     id INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(20),
-    image VARCHAR(254),
-    desciption VARCHAR(254),
+    name VARCHAR(200),
+    image VARCHAR(2000),
+    description TEXT,
+    gender VARCHAR(20),
+    release_year INT,
+    rate FLOAT,
     PRIMARY KEY ( id )
-);`;
+    );`;
+
+const INSERT_VALUES = `INSERT INTO movies
+    (name, image, description, gender, release_year, rate)
+    VALUES 
+    ('Ambulance. Plan de huida', 'https://pics.filmaffinity.com/ambulance-409574561-large.jpg', 
+    'El veterano Will Sharp, en un acto desesperado por conseguir dinero para cubrir las deudas médicas de su esposa, recurre a la única persona que sabe que no debería, su hermano adoptivo Danny. Danny le ofrece participar en un robo a un banco, el más grande en la historia de la ciudad. Will no puede decir que no. Cuando su intento de escape sale mal, los hermanos secuestran una ambulancia con un policía herido y una paramédica. Ahora deberán huir de un inmenso dispositivo de fuerzas de seguridad desplegado por toda la ciudad, mantener a sus rehenes con vida y de alguna forma tratar de no matarse entre ellos.', 
+    'Accion', '2022', '5.7');`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export type MariaConfig = {
     host: string;
@@ -37,7 +71,9 @@ export function buildSQLDatabase({
             user
         });
         await pool.query(`USE ${database}`);
-        await pool.query(CREATE_TABLE_MESSAGES);
+        await pool.query(REMOVE_TABLE);
+        await pool.query(CREATE_TABLE_MOVIES);
+        await pool.query(INSERT_VALUES);
     }
 
     async function close(): Promise<void> {

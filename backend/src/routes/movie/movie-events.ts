@@ -7,7 +7,10 @@ const movieSchema = {
     properties: {
         id: { type: 'string' },
         name: { type: 'string' },
-        image: { type: 'string' }
+        image: { type: 'string' },
+        gender: { type: 'string' },
+        release_year: { type: 'string' },
+        rate: { type: 'string' }
     }
 };
 
