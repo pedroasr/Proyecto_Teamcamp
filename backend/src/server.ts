@@ -8,7 +8,7 @@ export function buildServer(logger: Logger, movieServices : MovieServices): Fast
     const server = fastify({ logger });
     server.register(async function routes(server: FastifyInstance) {
 
-        server.register(buildMovieRoutes(), { prefix: 'movie', movieServices});
+        server.register(buildMovieRoutes(), { prefix: 'movies', movieServices});
         server.setNotFoundHandler(function(request, reply: FastifyReply<Server>) {
 			reply.code(404).send({
 				statusCode: 404,
