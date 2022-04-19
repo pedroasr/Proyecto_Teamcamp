@@ -39,10 +39,9 @@ export function buildMovieServices(db: SQL_DB) : MovieServices{
         },
     
         async getById(id: number) : Promise<Movie>{
-            const movie = await db.runQuery(
+            return await db.runQuery(
                 `SELECT * FROM movies WHERE id = ${id};`
             );
-            return movie[0]
         },
 
         async getByFilter(page: number, pageSize: number, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default', gender: string) : Promise<Movie[]>{

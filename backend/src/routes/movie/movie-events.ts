@@ -5,13 +5,13 @@ import { MovieServices } from "../../database/movie-service";
 const movieSchema = {
     type: 'object',
     properties: {
-        id: { type: 'string' },
+        id: { type: 'integer' },
         name: { type: 'string' },
         image: { type: 'string' },
         description: { type: 'string' },
         gender: { type: 'string' },
-        release_year: { type: 'string' },
-        rate: { type: 'string' }
+        release_year: { type: 'integer' },
+        rate: { type: 'number' }
     }
 };
 
@@ -38,19 +38,20 @@ const listSchema = {
 };
 
 const idMovieSchema = {
-    tags: ['movies'],
+    tags: ['movie'],
     querystring: {
         id: { type: 'integer' }
     },
     response: {
-        200: { type: 'object',
-               properties: { 
-                   results: {
-                       type: 'object',
-                       item: movieSchema
-                   }
-                } 
-            }
+        200: { 
+            type: 'object',
+            properties: { 
+                results: {
+                    type: 'object',
+                    items: movieSchema
+                }
+            } 
+        }
     }
 } 
 
@@ -95,8 +96,7 @@ export function buildMovieRoutes() : FastifyPluginCallback<{movieServices : Movi
         async function getMovieById(request : FastifyRequest<{Querystring: { id: number } }>){
             const { id } = request.query;
             const movie = await movieServices.getById(id);
-            console.log(movie)
-            return movie;
+            return {results: movie};
         }
 
         async function getByFilter(request : FastifyRequest<{Querystring: {page:number, pageSize:number, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default', gender : string}}>) {
