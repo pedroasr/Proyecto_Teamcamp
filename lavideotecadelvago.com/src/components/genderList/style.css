@@ -1,0 +1,6 @@
+.Gender {
+    display: flex;
+    border: black solid medium;
+    padding: 1.5rem;
+    margin: 2rem;
+}
