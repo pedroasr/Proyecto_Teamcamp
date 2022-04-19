@@ -7,6 +7,15 @@ const movieSchema = {
     properties: {
         id: { type: 'integer' },
         name: { type: 'string' },
+        image: { type: 'string' }
+    }
+};
+
+const movieFullSchema = {
+    type: 'object',
+    properties: {
+        id: { type: 'integer' },
+        name: { type: 'string' },
         image: { type: 'string' },
         description: { type: 'string' },
         gender: { type: 'string' },
@@ -48,7 +57,7 @@ const idMovieSchema = {
             properties: { 
                 results: {
                     type: 'object',
-                    items: movieSchema
+                    items: movieFullSchema
                 }
             } 
         }
