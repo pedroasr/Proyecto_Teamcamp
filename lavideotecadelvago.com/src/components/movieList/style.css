@@ -1,6 +1,5 @@
 .Movie {
-    display: flex;
-    border: black solid medium;
-    padding: 1.5rem;
-    margin: 2rem;
+    display: inline-block;
+    vertical-align: top;
+    padding: 3px 3px 3px 0px;
 }

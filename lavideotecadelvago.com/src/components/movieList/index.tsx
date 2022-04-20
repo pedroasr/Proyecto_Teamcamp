@@ -20,3 +20,5 @@ export function Movie({ id, image, name }: MovieProps) {
         </a>
     );
 }
+
+export default Movie;

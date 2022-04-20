@@ -1,0 +1,28 @@
+import * as React from 'react';
+
+import Movie from './movieList';
+import GenderList from './genderList';
+
+import './styles.css';
+
+function App(){
+    return(
+        <div className='App'>
+            <h1 className={'Title'}>lavideotecadelvago</h1>
+                <div className={'Body'}>
+                    <table className='main-content-table'>
+                        <tr>
+                            <td id='gender-list'>
+                                <GenderList/>
+                            </td>
+                            <td id='movie-list'>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+        </div>
+    );
+}
+
+export default App;
