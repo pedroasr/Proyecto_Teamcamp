@@ -21,4 +21,12 @@ export function Movie({ id, image, name }: MovieProps) {
     );
 }
 
-export default Movie;
+export function MovieList(){
+    return(
+        <div>
+            
+        </div>
+    );
+}
+
+export default MovieList;

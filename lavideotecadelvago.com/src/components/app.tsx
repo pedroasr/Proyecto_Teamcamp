@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Movie from './movieList';
+import MovieList from './movieList';
 import GenderList from './genderList';
 
 import './styles.css';
@@ -16,7 +16,7 @@ function App(){
                                 <GenderList/>
                             </td>
                             <td id='movie-list'>
-
+                                <MovieList/>
                             </td>
                         </tr>
                     </table>
