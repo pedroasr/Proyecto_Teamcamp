@@ -3,3 +3,9 @@
     vertical-align: top;
     padding: 3px 3px 3px 0px;
 }
+
+.MovieList{
+    border-collapse: separate;
+    border-spacing: 0;
+    cursor: auto;
+}

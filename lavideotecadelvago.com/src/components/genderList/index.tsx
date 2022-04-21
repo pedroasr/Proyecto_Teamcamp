@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './styles.css';
+import './style.css';
 
 type GenderProps = {
     gender: string;
