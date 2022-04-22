@@ -15,9 +15,9 @@ function App(){
                             <td id='gender-list'>
                                 <GenderList/>
                             </td>
-                            <td id='movie-list'>
+{/*                             <td id='movie-list'>
                                 <MovieList list={[{id: 1, image: 'dddd', name:'dc'}]}/>
-                            </td>
+                            </td> */}
                         </tr>
                     </table>
                 </div>
