@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 
 import './style.css';
 
@@ -14,7 +15,7 @@ export function Movie({ id, image, name }: MovieProps) {
         <div>
             <a className='Movie' href={path}>
                 <div>
-                    <img src={image} list-src={image} alt={name}></img>
+                    <img src={image} data-src={image} alt={name}></img>
                 </div>
                 <div>
                     {name}
@@ -24,51 +25,53 @@ export function Movie({ id, image, name }: MovieProps) {
     );
 }
 
-type MovieListProps = {
-    list : MovieProps[];
-};
+export function MovieList(){
+    const [data, setData] = useState([{id: 0, image: '', name: ''}]);
 
-export function MovieList({list}: MovieListProps){
-/*     fetch(`"http://localhost/movies?page=${page}"`)
-    .then(response => response.json())
-    .then(list =>  */ 
+    React.useEffect(() => {
+        fetch(`http://localhost:3099/movies`)
+        .then(response => {return response.json()})
+        .then((data) => {setData(data.results)})
+    }, [data])
+
     return(
-        <div>
+        <div> 
             <div>
-                <Movie id={list[0].id} image={list[0].image} name={list[0].name}/>
+                <Movie id={data[0].id} image={data[0].image} name={data[0].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={list[1].id} image={list[1].image} name={list[1].name}/>
+                <Movie id={data[1].id} image={data[1].image} name={data[1].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={list[2].id} image={list[2].image} name={list[2].name}/>
+                <Movie id={data[2].id} image={data[2].image} name={data[2].name}/>
             </div>
             <div>
-                <Movie id={list[3].id} image={list[3].image} name={list[3].name}/>
-            </div>
-            <div></div>
-            <div>
-                <Movie id={list[4].id} image={list[4].image} name={list[4].name}/>
+                <Movie id={data[3].id} image={data[3].image} name={data[3].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={list[5].id} image={list[5].image} name={list[5].name}/>
-            </div>
-            <div>
-                <Movie id={list[6].id} image={list[6].image} name={list[6].name}/>
+                <Movie id={data[4].id} image={data[4].image} name={data[4].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={list[7].id} image={list[7].image} name={list[7].name}/>
+                <Movie id={data[5].id} image={data[5].image} name={data[5].name}/>
+            </div>
+            <div>
+                <Movie id={data[6].id} image={data[6].image} name={data[6].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={list[8].id} image={list[8].image} name={list[8].name}/>
+                <Movie id={data[7].id} image={data[7].image} name={data[7].name}/>
+            </div>
+            <div></div>
+            <div>
+                <Movie id={data[8].id} image={data[8].image} name={data[8].name}/>
             </div>
         </div>
     )
 }
 
 export default MovieList;
+
