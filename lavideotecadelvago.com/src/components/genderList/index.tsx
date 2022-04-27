@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import './style.css';
 
@@ -6,11 +7,11 @@ type GenderProps = {
     gender: string;
 };
 export function Gender({ gender }: GenderProps) {
-    const path = `"http://localhost/movies/filter?gender=${gender}"`;
+    const path = `filter?gender=${gender}`;
     return (
-        <a className={'Gender'} href={path}>
+        <Link className={'Gender'} to={path}>
             {gender}
-        </a>
+        </Link>
     );
 }
 

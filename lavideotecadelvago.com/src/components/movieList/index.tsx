@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import './style.css';
 
@@ -9,65 +10,76 @@ type MovieProps = {
     name: string;
 };
 
-export function Movie({ id, image, name }: MovieProps) {
-    const path = `"http://localhost/movies/movie?id=${id}"`;
+export function Movie(props: MovieProps) {
+    const path = `movie?id=${props.id}`;
     return (
         <div>
-            <a className='Movie' href={path}>
+            <Link className='Movie' to={path}>
                 <div>
-                    <img src={image} data-src={image} alt={name}></img>
+                    <img src={props.image} data-src={props.image} alt={props.name}></img>
                 </div>
                 <div>
-                    {name}
+                    {props.name}
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }
 
 export function MovieList(){
-    const [data, setData] = useState([{id: 0, image: '', name: ''}]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [movieData, setMovieData] = useState([{id:0, image:'', name:''}]);
+
 
     React.useEffect(() => {
         fetch(`http://localhost:3099/movies`)
-        .then(response => {return response.json()})
-        .then((data) => {setData(data.results)})
-    }, [data])
+        .then(response => response.json())
+        .then(data => {
+            setIsLoading(false);
+            setMovieData(data.results)})
+    }, []);
 
+    if (isLoading){
+        return (
+        <div className="App">
+            <h1>Cargando...</h1>
+        </div>  
+        );
+    }
     return(
         <div> 
             <div>
-                <Movie id={data[0].id} image={data[0].image} name={data[0].name}/>
+                <Movie id={movieData[0].id} image={movieData[0].image} name={movieData[0].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={data[1].id} image={data[1].image} name={data[1].name}/>
+                <Movie id={movieData[1].id} image={movieData[1].image} name={movieData[1].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={data[2].id} image={data[2].image} name={data[2].name}/>
+                <Movie id={movieData[2].id} image={movieData[2].image} name={movieData[2].name}/>
             </div>
             <div>
-                <Movie id={data[3].id} image={data[3].image} name={data[3].name}/>
-            </div>
-            <div></div>
-            <div>
-                <Movie id={data[4].id} image={data[4].image} name={data[4].name}/>
+                <Movie id={movieData[3].id} image={movieData[3].image} name={movieData[3].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={data[5].id} image={data[5].image} name={data[5].name}/>
-            </div>
-            <div>
-                <Movie id={data[6].id} image={data[6].image} name={data[6].name}/>
+                <Movie id={movieData[4].id} image={movieData[4].image} name={movieData[4].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={data[7].id} image={data[7].image} name={data[7].name}/>
+                <Movie id={movieData[5].id} image={movieData[5].image} name={movieData[5].name}/>
+            </div>
+            <div>
+                <Movie id={movieData[6].id} image={movieData[6].image} name={movieData[6].name}/>
             </div>
             <div></div>
             <div>
-                <Movie id={data[8].id} image={data[8].image} name={data[8].name}/>
+                <Movie id={movieData[7].id} image={movieData[7].image} name={movieData[7].name}/>
+            </div>
+            <div></div>
+            <div>
+                <Movie id={movieData[8].id} image={movieData[8].image} name={movieData[8].name}/>
             </div>
         </div>
     )

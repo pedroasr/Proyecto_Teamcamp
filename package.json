@@ -50,6 +50,8 @@
         "fastify": "^3.27.4",
         "make-promises-safe": "^5.1.0",
         "pino": "^7.9.2",
-        "pino-pretty": "^7.6.0"
+        "pino-pretty": "^7.6.0",
+        "react-router": "^6.3.0",
+        "react-router-dom": "^6.3.0"
     }
 }

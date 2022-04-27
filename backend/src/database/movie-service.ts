@@ -18,7 +18,7 @@ export type MovieFull = {
 
 export type MovieServices = {
     list(page: number, pageSize: number, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default') : Promise<Movie[]>,
-    getById(id: number) : Promise<MovieFull>,
+    getById(id: string) : Promise<MovieFull>,
     getByFilter(page: number, pageSize: number, order: 'alphadescent' | 'alphaascent' | 'new' | 'old' | 'default', gender: string) : Promise<Movie[]>
 };
 
@@ -44,7 +44,7 @@ export function buildMovieServices(db: SQL_DB) : MovieServices{
             }
         },
     
-        async getById(id: number) : Promise<MovieFull>{
+        async getById(id: string) : Promise<MovieFull>{
             return await db.runQuery(
                 `SELECT * FROM movies WHERE id = ${id};`
             );
