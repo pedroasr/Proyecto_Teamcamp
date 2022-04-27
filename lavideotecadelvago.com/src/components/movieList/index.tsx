@@ -86,4 +86,3 @@ export function MovieList(){
 }
 
 export default MovieList;
-
