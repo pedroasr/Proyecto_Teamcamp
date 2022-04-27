@@ -5,8 +5,8 @@
     "main": "main.ts",
     "scripts": {
         "eject": "react-scripts eject",
-        "build": "tsc -p tsconfig-build.json",
-        "start": "node dist/main.js",
+        "build": "tsc",
+        "start": "node main.js",
         "start:dev": "ts-node src/main.ts",
         "start:dev:watch": "nodemon -L src/main.ts --inspect=0.0.0.0:9229 --exec ts-node",
         "lint": "eslint . --ext .ts",
@@ -18,7 +18,7 @@
         "test-ci": "jest --collect-coverage",
         "publish-code-coverage": "codecov",
         "validate": "npm run lint && npm run test-ci",
-        "prepare": "[ \"$NODE_ENV\" = production ] && exit 0;husky install",
+        "prepare": "cd .. && husky install",
         "pretty-quick": "pretty-quick --staged"
     },
     "author": "Pedro Antonio",
