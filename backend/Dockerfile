@@ -1,7 +1,7 @@
-FROM node:16-alpine
+FROM node:16
 
 ENV NODE_ENV production
-ENV PORT 9090
+ENV PORT 3090
 
 WORKDIR /usr/app
 
@@ -11,6 +11,6 @@ RUN npm ci
 
 COPY ./dist ./
 
-EXPOSE 9090
+EXPOSE 3090
 
 CMD ["npm", "start"]
