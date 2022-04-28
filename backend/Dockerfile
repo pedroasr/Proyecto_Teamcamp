@@ -1,7 +1,8 @@
 FROM node:16
 
 ENV NODE_ENV production
-ENV PORT 3090
+
+ENV PORT 3099
 
 WORKDIR /usr/app
 
@@ -11,6 +12,6 @@ RUN npm ci
 
 COPY ./dist ./
 
-EXPOSE 3090
+EXPOSE 3099
 
 CMD ["npm", "start"]
