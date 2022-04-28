@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: on-failure
+    container_name: "mariadb"
+    environment:
+      MARIA_HOST: 172.17.0.2
+      MARIA_PORT: 3306
+      MARIA_ROOT_PASSWD: proyecto_peliculas
+      MARIA_USER_NAME: pedro
+      MARIA_USER_PASSWD: peliculas
+      MARIA_DATABASE_NAME: peliculas
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    networks:
+      - backend
+    volumes:
+      - ${PWD}/mariadb:/var/lib/mysql
+  networks:
+    backend: 
+      driver: bridge
